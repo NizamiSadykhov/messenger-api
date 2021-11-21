@@ -1,5 +1,8 @@
 package com.nizamisadykhov.messenger.api.services
 
+import com.nizamisadykhov.messenger.api.exceptions.InvalidUserIdException
+import com.nizamisadykhov.messenger.api.exceptions.UserStatusEmptyException
+import com.nizamisadykhov.messenger.api.exceptions.UsernameUnavailableException
 import com.nizamisadykhov.messenger.api.models.User
 import com.nizamisadykhov.messenger.api.repositories.UserRepository
 import org.springframework.stereotype.Service
@@ -22,14 +25,14 @@ class UserServiceImpl(val repository: UserRepository) : UserService {
 		throw UsernameUnavailableException("The username ${userDetails.username} is unavailable.")
 	}
 
-	@Throws(UserStatusEmptyExceptions::class)
+	@Throws(UserStatusEmptyException::class)
 	private fun updateUserStatus(currentUser: User, updateDetails: User): User {
 		if (updateDetails.status.isNotEmpty()) {
 			currentUser.status = updateDetails.status
 			repository.save(currentUser)
 			return currentUser
 		}
-		throw UserStatusEmptyExceptions()
+		throw UserStatusEmptyException()
 	}
 
 	override fun listUsers(currentUser: User): List<User> {
@@ -42,7 +45,7 @@ class UserServiceImpl(val repository: UserRepository) : UserService {
 		return user
 	}
 
-	@Throws(InvalidateUserExecptions::class)
+	@Throws(InvalidUserIdException::class)
 	override fun retrieveUserData(id: Long): User? {
 		val userOptional = repository.findById(id)
 		if (userOptional.isPresent) {
@@ -50,7 +53,7 @@ class UserServiceImpl(val repository: UserRepository) : UserService {
 			obscurePassword(user)
 			return user
 		}
-		throw InvalidateUserExecptions("A user with an id of '$id' does not exist.")
+		throw InvalidUserIdException("A user with an id of '$id' does not exist.")
 	}
 
 	override fun usernameExists(username: String): Boolean {

@@ -5,7 +5,15 @@ import java.time.Instant
 import java.util.*
 import javax.persistence.*
 
+
 @Entity
+/**
+ * Беседа
+ * @param sender отправитель
+ * @param recipient получатель
+ * @param id  id
+ * @param createdAt дата создания
+ */
 class Conversation(
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "sender_id", referencedColumnName = "id")
@@ -22,6 +30,7 @@ class Conversation(
 	@DateTimeFormat
 	val createdAt: Date = Date.from(Instant.now())
 ) {
+	/** Коллеция сообщений */
 	@OneToMany(mappedBy = "conversation", targetEntity = Message::class)
 	private var messages: Collection<Message>? = null
 }

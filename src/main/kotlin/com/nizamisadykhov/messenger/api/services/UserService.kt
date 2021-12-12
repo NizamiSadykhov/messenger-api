@@ -6,6 +6,8 @@ interface UserService {
 	/**	Попытка регистрации	*/
 	fun attemptRegistration(userDetails: User): User
 
+	fun updateUserStatus(currentUser: User, updateDetails: User): User
+
 	fun listUsers(currentUser: User): List<User>
 
 	/** Получить данные пользователя */

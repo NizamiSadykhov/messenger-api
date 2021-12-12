@@ -14,7 +14,7 @@ class AppUserDetailsService(val userRepository: UserRepository) : UserDetailsSer
 
 	@Throws(UsernameNotFoundException::class)
 	override fun loadUserByUsername(username: String): UserDetails {
-		val user = userRepository.findUsername(username)
+		val user = userRepository.findByUsername(username)
 			?: throw UsernameNotFoundException("A user with the username $username doesn`t exist")
 
 		return User(user.username, user.password, ArrayList<GrantedAuthority>())

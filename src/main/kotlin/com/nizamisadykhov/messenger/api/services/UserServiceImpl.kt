@@ -26,7 +26,7 @@ class UserServiceImpl(val repository: UserRepository) : UserService {
 	}
 
 	@Throws(UserStatusEmptyException::class)
-	private fun updateUserStatus(currentUser: User, updateDetails: User): User {
+	override fun updateUserStatus(currentUser: User, updateDetails: User): User {
 		if (updateDetails.status.isNotEmpty()) {
 			currentUser.status = updateDetails.status
 			repository.save(currentUser)
@@ -40,13 +40,13 @@ class UserServiceImpl(val repository: UserRepository) : UserService {
 	}
 
 	override fun retrieveUserData(userName: String): User? {
-		val user = repository.findUsername(userName)
+		val user = repository.findByUsername(userName)
 		obscurePassword(user)
 		return user
 	}
 
 	@Throws(InvalidUserIdException::class)
-	override fun retrieveUserData(id: Long): User? {
+	override fun retrieveUserData(id: Long): User {
 		val userOptional = repository.findById(id)
 		if (userOptional.isPresent) {
 			val user = userOptional.get()
@@ -57,7 +57,7 @@ class UserServiceImpl(val repository: UserRepository) : UserService {
 	}
 
 	override fun usernameExists(username: String): Boolean {
-		return repository.findUsername(username) != null
+		return repository.findByUsername(username) != null
 	}
 
 	private fun obscurePassword(user: User?) {

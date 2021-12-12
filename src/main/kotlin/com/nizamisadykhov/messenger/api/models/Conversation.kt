@@ -32,5 +32,5 @@ class Conversation(
 ) {
 	/** Коллеция сообщений */
 	@OneToMany(mappedBy = "conversation", targetEntity = Message::class)
-	private var messages: Collection<Message>? = null
+	lateinit var messages: Collection<Message>
 }

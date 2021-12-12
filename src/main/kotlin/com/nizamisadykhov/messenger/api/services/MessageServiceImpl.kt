@@ -39,6 +39,6 @@ class MessageServiceImpl(
 		} else {
 			throw MessageRecipientInvalidException("The recipient id '$recipientId' is invalid.")
 		}
-		throw MessageEmptyException()
+		//throw MessageEmptyException()
 	}
 }

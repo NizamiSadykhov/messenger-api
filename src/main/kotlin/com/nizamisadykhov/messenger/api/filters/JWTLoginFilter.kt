@@ -45,8 +45,8 @@ class JWTLoginFilter(
 		request: HttpServletRequest,
 		response: HttpServletResponse,
 		chain: FilterChain,
-		authResult: Authentication
+		auth: Authentication
 	) {
-		TokenAuthenticationService.addAuthentication(response, authResult.name)
+		TokenAuthenticationService.addAuthentication(response, auth.name)
 	}
 }

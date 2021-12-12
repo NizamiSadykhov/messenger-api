@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 internal object TokenAuthenticationService {
-	private val TOKEN_EXPIRY: Long = 864000000
-	private val SECRET = "$78qr43g7g8feb8we"
-	private val TOKEN_PREFIX = "Bearer"
-	private val AUTHORIZATION_HEADER_KEY = "Authorization"
+	private const val TOKEN_EXPIRY: Long = 864000000
+	private const val SECRET = "$78qr43g7g8feb8we"
+	private const val TOKEN_PREFIX = "Bearer"
+	private const val AUTHORIZATION_HEADER_KEY = "Authorization"
 
 	fun addAuthentication(res: HttpServletResponse, username: String) {
 		val jwt = Jwts.builder()

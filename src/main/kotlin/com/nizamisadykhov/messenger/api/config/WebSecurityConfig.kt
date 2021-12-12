@@ -22,7 +22,7 @@ class WebSecurityConfig(val userDetailsService: AppUserDetailsService) : WebSecu
 	@Throws(Exception::class)
 	override fun configure(http: HttpSecurity) {
 		http.csrf().disable().authorizeRequests()
-			.antMatchers(HttpMethod.POST, "/login").permitAll()
+			.antMatchers(HttpMethod.POST, "/users/registrations").permitAll()
 			.antMatchers(HttpMethod.POST, "/login").permitAll()
 			.anyRequest().authenticated()
 			.and()
